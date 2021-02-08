@@ -141,7 +141,9 @@ def time_stats(df):
     df['month'] = df['Start Time'].dt.month
 
     popular_month = int(df['month'].mode())
-    print("\nThe month most traveled: " + months[popular_month].title())
+
+    # REFACTOR the month most traveled print line:
+    print("\nThe month most traveled: {}".format(months[popular_month].title()))
 
 
     # TO DO: display the most common day of week
