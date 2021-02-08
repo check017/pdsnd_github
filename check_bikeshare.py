@@ -73,6 +73,7 @@ def get_filters():
             print("\n\tGood! " + city.title() + " is a good city to use.")
             to_stay = False
     # TO DO: get user input for month (all, january, february, ... , june)
+    # REFACTORED if / elif / else for functionality 
     data_answers = ['m', 'd', 'n']  # 'm' for month, 'd' for day, 'n' for no filter
     to_loop_again = True
     while to_loop_again:
@@ -88,6 +89,8 @@ def get_filters():
             to_loop_again = False
         elif data_filter == 'n':
             print("\n\tThe data will be unfiltered.")
+            month = 'all'
+            day = 'all'
             to_loop_again = False
         else:
             print()
@@ -170,7 +173,7 @@ def station_stats(df):
 
     # TO DO: display most commonly used start station
     best_start_station = (df['Start Station'].mode())
-    print("\n\nThe most common start station was: \n\t")
+    print("\n\nThe most common start station was: \n\t", best_start_station)
     print(best_start_station)
 
     # TO DO: display most commonly used end station
