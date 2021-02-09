@@ -129,7 +129,8 @@ def load_data(city, month, day):
     if day != 'all':
         # filter by day of week to create the new dataframe
         days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
-        day_int = days.index(day)
+        # df = df[df['Start Time'].dt.dayofweek == days.index(day)]
+        day_int = days.index(day) + 1
         df = df[df['Start Time'].dt.dayofweek == day_int]
     return df
 
@@ -220,13 +221,13 @@ def user_stats(df, city):
     customers = 0
     x = 0   # for use as a counter
     # For loop will sum up the amount of Subscribers and Customers
+    # REFACTOR the for loop
     for user_type in df['User Type']:
         if user_type == 'Subscriber':
             subscribers += 1
-            x += 1
         else:
             customers += 1
-            x = 1
+        x += 1
     
     print("\n\nThe number of subscribers was ", subscribers)
     print("\nThe number of customers was ", customers)
