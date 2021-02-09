@@ -73,6 +73,7 @@ def get_filters():
             print("\n\tGood! " + city.title() + " is a good city to use.")
             to_stay = False
     # TO DO: get user input for month (all, january, february, ... , june)
+    # REFACTORED if / elif / else for functionality 
     data_answers = ['m', 'd', 'n']  # 'm' for month, 'd' for day, 'n' for no filter
     to_loop_again = True
     while to_loop_again:
@@ -88,6 +89,8 @@ def get_filters():
             to_loop_again = False
         elif data_filter == 'n':
             print("\n\tThe data will be unfiltered.")
+            month = 'all'
+            day = 'all'
             to_loop_again = False
         else:
             print()
@@ -126,7 +129,8 @@ def load_data(city, month, day):
     if day != 'all':
         # filter by day of week to create the new dataframe
         days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
-        day_int = days.index(day)
+        # df = df[df['Start Time'].dt.dayofweek == days.index(day)]
+        day_int = days.index(day) + 1
         df = df[df['Start Time'].dt.dayofweek == day_int]
     return df
 
@@ -147,7 +151,9 @@ def time_stats(df):
     df['month'] = df['Start Time'].dt.month
 
     popular_month = int(df['month'].mode())
-    print("\nThe month most traveled: " + months[popular_month].title())
+
+    # REFACTOR the month most traveled print line:
+    print("\nThe month most traveled: {}".format(months[popular_month].title()))
 
 
     # TO DO: display the most common day of week
@@ -180,7 +186,7 @@ def station_stats(df):
 
     # TO DO: display most commonly used start station
     best_start_station = (df['Start Station'].mode())
-    print("\n\nThe most common start station was: \n\t")
+    print("\n\nThe most common start station was: \n\t", best_start_station)
     print(best_start_station)
 
     # TO DO: display most commonly used end station
@@ -227,13 +233,13 @@ def user_stats(df, city):
     customers = 0
     x = 0   # for use as a counter
     # For loop will sum up the amount of Subscribers and Customers
+    # REFACTOR the for loop
     for user_type in df['User Type']:
         if user_type == 'Subscriber':
             subscribers += 1
-            x += 1
         else:
             customers += 1
-            x = 1
+        x += 1
     
     print("\n\nThe number of subscribers was ", subscribers)
     print("\nThe number of customers was ", customers)
